@@ -3,7 +3,7 @@ A simple   Line   class.
 NOTE: This is NOT rosegraphics -- it is your OWN Line class.
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and Alexander Tabuyo.
+         and Harrison Finch.
 """  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import math
