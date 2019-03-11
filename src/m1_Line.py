@@ -1,11 +1,10 @@
 """
 A simple   Line   class.
 NOTE: This is NOT rosegraphics -- it is your OWN Line class.
-
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Alexander Tabuyo.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import math
 import m1t_test_Line as m1t
@@ -17,7 +16,7 @@ import m1t_test_Line as m1t
 ###############################################################################
 
 # -----------------------------------------------------------------------------
-# TODO: 2.  Right-click on the  src  folder and
+# DONE: 2.  Right-click on the  src  folder and
 #               Mark Directory as ... Sources Root,
 #           if you have not already done so.
 #
@@ -131,6 +130,7 @@ class Point(object):
         """  Returns a new Point at the same (x, y) as this Point. """
         return Point(self.x, self.y)
 
+
     def distance_from(self, p2):
         """ Returns the distance this Point is from the given Point. """
         dx_squared = (self.x - p2.x) ** 2
@@ -185,9 +185,7 @@ class Line(object):
           -- a Point object named  end
         where the two Points are to be the initial start and end points,
         respectively, of this Line.
-
         What goes out: Nothing (i.e., None).
-
         Side effects:  MUTATEs this Line by setting two instance
         variables named:
           -- start
@@ -196,28 +194,24 @@ class Line(object):
         Other methods must maintain those instance variables as needed
         so that they always indicate the CURRENT start and end points
         of this Line.
-
         Also, initializes other instance variables as needed
         by other Line methods.
-
         Example:  This   __init__  method runs when one constructs
         a Line.  So the 3rd of the following statements
         invokes the   __init__   method of this Line class:
             p1 = Point(30, 17)
             p2 = Point(50, 80)
             line = Line(p1, p2)        # Causes __init__ to run
-
             print(line.start)          # Should print Point(30, 17)
             print(line.end)            # Should print Point(50, 80)
             print(line.start == p1)    # Should print True
             print(line.start is p1)    # Should print False
-
         Type hints:
           :type start: Point
           :type end:   Point
         """
         # ---------------------------------------------------------------------
-        # TODO: 3.
+        # DONE: 3.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -225,6 +219,14 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        self.start = start.clone()
+        self.end = end.clone()
+
+        self.starting = self.start.clone()
+        self.ending = self.end.clone()
+
+        self.clone_count = 0
+
 
     def __repr__(self):
         """
@@ -237,17 +239,14 @@ class Line(object):
         Note:  print(BLAH)  causes BLAH's __repr__ to be called.
                BLAH's __repr__ returns a string,
                which the  print  function then prints.
-
         Example:  Since the  print  function calls __repr__ on the
         object to be printed:
             p1 = Point(30, 17)
             p2 = Point(50, 80)
             line = Line(p1, p2)  # Causes __init__ to run
-
             # The following statement causes __repr__ to run,
             # hence should print: Line[(30, 17), (50, 80)]
             print(line)
-
         Type hints:
           :rtype: str
         """
@@ -270,22 +269,17 @@ class Line(object):
            Returns  False  otherwise.
         Side effects: None.
         Note:  a == b   is equivalent to  a.__eq__(b).
-
         Examples:
             p1 = Point(30, 17)
             p2 = Point(50, 80)
-
             line1 = Line(p1, p2)
             line2 = Line(p1, p2)
             line3 = Line(p2, p1)
-
             print(line1 == line1)   # Should print: True
             print(line1 == line2)   # Should print: True
             print(line1 == line3)   # Should print: False
-
             line1.start = Point(0, 0)
             print(line1 == line2)   # Should now print: False
-
         Type hints:
           :type  line2: Line
           :rtype: bool
@@ -303,30 +297,26 @@ class Line(object):
         What goes out: Returns a new Line whose START is a clone of
           this Line's START and whose END is a clone of this Line's END.
         Side effects: None.
-
         Example:
             p1 = Point(30, 17)
             p2 = Point(50, 80)
             line1 = Line(p1, p2)
             line2 = line1.clone()
-
             print(line1)  # Should print: Line[(30, 17), (50, 80)]
             print(line2)  # Should print: Line[(30, 17), (50, 80)]
             print(line1 == line2)              # Should print: True
             print(line1 is line2)              # Should print: False
             print(line1.start is line2.start)  # Should print: False
             print(line1.end is line2.end)      # Should print: False
-
             line1.start = Point(11, 12)
             print(line1)  # Should print: Line[(11, 12), (50, 80)]
             print(line2)  # Should print: Line[(30, 17), (50, 80)]
             print(line1 == line2)  # Should now print: False
-
         Type hints:
           :rtype: Line
         """
         # ---------------------------------------------------------------------
-        # TODO: 4.
+        # DONE: 4.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -334,6 +324,8 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        self.clone_count = self.clone_count + 1
+        return Line(self.start.clone(), self.end.clone())
 
     def reverse(self):
         """
@@ -343,24 +335,20 @@ class Line(object):
         Side effects: MUTATES this Line so that its direction is reversed
         (that is, its start and end points are swapped).
         ** Must NOT mutate its start and end points -- just SWAP them. **
-
         Examples:
             p1 = Point(30, 17)
             p2 = Point(50, 80)
             line1 = Line(p1, p2)
             line2 = line1.clone()
-
             print(line1)  # Should print: Line[(30, 17), (50, 80)]
-
             line1.reverse()
             print(line1)  # Should print: Line[(50, 80), (30, 17)]
             print(line1 == line2)    # Should print: False
-
             line1.reverse()
             print(line1 == line2)    # Should now print: True
         """
         # ---------------------------------------------------------------------
-        # TODO: 5.
+        # DONE: 5.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -368,6 +356,11 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        temp = self.start
+        self.start = self.end
+        self.end = temp
+
+
 
     def slope(self):
         """
@@ -377,26 +370,21 @@ class Line(object):
            math.inf
         if the line is vertical (i.e., has "infinite" slope).
         Side effects: None.
-
         Examples:
             p1 = Point(30, 3)
             p2 = Point(50, 8)
             line1 = Line(p1, p2)
-
             # Since the slope is (8 - 3) / (50 - 30) , which is 0.25:
             print(line1.slope())    # Should print [approximately]: 0.25
-
             line2 = Line(Point(10, 10), Point(10, 5))
             print(line2.slope())    # Should print:  inf
-
             # math.inf is NOT the STRING 'inf', so:
             print(line2.slope() == 'inf')   # Should print False
-
         Type hints:
           :rtype: float
         """
         # ---------------------------------------------------------------------
-        # TODO: 6.
+        # DONE: 6.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -404,6 +392,13 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        y = self.end.y - self.start.y
+        x = self.end.x - self.start.x
+        if x == 0:
+            return math.inf
+        slope = y / x
+        return slope
+
 
     def length(self):
         """
@@ -411,25 +406,21 @@ class Line(object):
           -- self
         What goes out: Returns the length of this Line.
         Side effects: None.
-
         Example:
             p1 = Point(166, 10)
             p2 = Point(100, 10)
             line1 = Line(p1, p2)
-
             # Since the distance from p1 to p2 is 66:
             print(line1.length())  # Should print: 66.0
-
             p3 = Point(0, 0)
             p4 = Point(3, 4)
             line2 = Line(p3, p4)
             print(line2.length())  # Should print about 5.0
-
         Type hints:
           :rtype: float
         """
         # ---------------------------------------------------------------------
-        # TODO: 7.
+        # DONE: 7.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -437,6 +428,10 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        x = (self.end.x - self.start.x) ** 2
+        y = (self.end.y - self.start.y) ** 2
+        hyp = (x + y) ** 0.5
+        return hyp
 
     def get_number_of_clones(self):
         """
@@ -446,7 +441,6 @@ class Line(object):
           -- Returns the number of times that this Line has been cloned
                (via the   clone   method).
         Side effects: None.
-
         Example:
             line1 = Line(Point(500, 20), Point(100, 8))
             line2 = line1.clone()
@@ -464,12 +458,11 @@ class Line(object):
             1    [since there is one      line3.clone()  statement]
             0    [since there are no      line4.clone()  statements]
             0    [since there are no      line5.clone()  statements]
-
         Type hints:
           :rtype: int:
         """
         # ---------------------------------------------------------------------
-        # TODO: 8.
+        # DONE: 8.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -477,6 +470,7 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        return self.clone_count
 
     def line_plus(self, other_line):
         """
@@ -490,20 +484,18 @@ class Line(object):
               -- end is the sum of this Line's end (a Point)
                    and the other_line's end (another Point).
         Side effects: None.
-
         Example:
             line1 = Line(Point(500, 20), Point(100, 8))
             line2 = Line(Point(100, 13), Point(400, 8))
             line3 = line1.line_plus(line2)
             print(line3)
         would print:   Line[(600, 33), (500, 16)]
-
         Type hints:
           :type  other_line: Line
           :rtype: Line:
         """
         # ---------------------------------------------------------------------
-        # TODO: 9.
+        # DONE: 9.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -511,6 +503,20 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        xs = self.start.x + other_line.start.x
+        ys = self.start.y + other_line.start.y
+        spoi = Point(xs, ys)
+
+        xe = self.end.x + other_line.end.x
+        ye = self.end.y + other_line.end.y
+        epoi = Point(xe, ye)
+        line = Line(spoi, epoi)
+        return line
+
+
+
+
+
 
     def line_minus(self, other_line):
         """
@@ -524,20 +530,18 @@ class Line(object):
               -- end is this Line's end (a Point)
                    minus the other_line's end (another Point).
         Side effects: None.
-
         Example:
             line1 = Line(Point(500, 20), Point(100, 8))
             line2 = Line(Point(100, 13), Point(400, 8))
             line3 = line1.line_minus(line2)
             print(line3)
         would print:   Line[(400, 7), (-300, 0)]
-
         Type hints:
           :type  other_line: Line
           :rtype: Line:
         """
         # ---------------------------------------------------------------------
-        # TODO: 10.
+        # DONE: 10.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -545,26 +549,31 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        xs = self.start.x - other_line.start.x
+        ys = self.start.y - other_line.start.y
+        spoi = Point(xs, ys)
 
+        xe = self.end.x - other_line.end.x
+        ye = self.end.y - other_line.end.y
+        epoi = Point(xe, ye)
+        line = Line(spoi, epoi)
+        return line
     def midpoint(self):
         """
         What comes in:
           -- self
         What goes out: returns a Point at the midpoint of this Line.
         Side effects: None.
-
         Example:
             p1 = Point(3, 10)
             p2 = Point(9, 20)
             line1 = Line(p1, p2)
-
             print(line1.midpoint())  # Should print: Point(6, 15)
-
         Type hints:
           :rtype: Point
         """
         # ---------------------------------------------------------------------
-        # TODO: 11.
+        # DONE: 11.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -572,6 +581,10 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        x = (self.end.x + self.start.x) / 2
+        y = (self.end.y + self.start.y) / 2
+        poi = Point(x, y)
+        return poi
 
     def is_parallel(self, line2):
         """
@@ -582,26 +595,23 @@ class Line(object):
           given Line (line2).  Returns  False  otherwise.
             *** SEE THE IMPORTANT NOTE BELOW, re ROUNDING numbers.
         Side effects: None.
-
         Examples:
             line1 = Line(Point(15, 30), Point(17, 50))  # slope is 10.0
             line2 = Line(Point(10, 10), Point(15, 60))  # slope is 10.0
             line3 = Line(Point(10, 10), Point(80, 80))  # slope is  7.0
             line4 = Line(Point(10, 10), Point(10, 20))  # slope is inf
-
             print(line1.is_parallel(line2))   # Should print: True
             print(line2.is_parallel(line1))   # Should print: True
             print(line1.is_parallel(line3))   # Should print: False
             print(line1.is_parallel(line4))   # Should print: False
             print(line1.is_parallel(line1))   # Should print: True
             print(line4.is_parallel(line4))   # Should print: True
-
         Type hints:
           :type  line2: Line
           :rtype: bool
         """
         # ---------------------------------------------------------------------
-        # TODO: 12.
+        # DONE: 12.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -636,6 +646,28 @@ class Line(object):
         # floating-point errors while distinguishing numbers that really
         # are different from each other.
         #######################################################################
+        x = self.end.x - self.start.x
+        y = self.end.y - self.start.y
+        if x == 0:
+            a = math.inf
+        else:
+            m1 = y / x
+            a = round(m1,10)
+
+        x2 = line2.end.x - line2.start.x
+        y2 = line2.end.y - line2.start.y
+
+        if x2 == 0:
+            b = math.inf
+        else:
+            m2 = y2 / x2
+            b = round(m2,10)
+
+
+        return a == b
+
+
+
 
     def reset(self):
         """
@@ -644,30 +676,26 @@ class Line(object):
         What goes out: Nothing (i.e., None).
         Side effects: MUTATES this Line so that its start and end points
           revert to what they were when this Line was constructed.
-
         Examples:
             p1 = Point(-3, -4)
             p2 = Point(3, 4)
             line1 = Line(p1, p2)
             line2 = Line(Point(0, 1), Point(10, 20))
-
               ... [various actions, including some like these:]
             line1.start = Point(100, 300)
             line2.end = Point(99, 4)
             line1.reverse()
-
             # Should print: Line[(x1, y1), (x2, y2)] where (x1, y1) and
             # (x2, y2) are the CURRENT coordinates of line1's endpoints.
             print(line1)
             print(line2)  # Similarly for line2
-
             line1.reset()
             line2.reset()
             print(line1)  # Should print: Line[(-3, -4), (3, 4)]
             print(line2)  # Should print: Line[(0, 1), (10, 20)]
         """
         # ---------------------------------------------------------------------
-        # TODO: 13.
+        # DONE: 13.
         #   a. READ the above specification, including the Example.
         #        ** ASK QUESTIONS AS NEEDED. **
         #        ** Be sure you understand it, ESPECIALLY the Example.
@@ -675,6 +703,8 @@ class Line(object):
         #        The tests are already written (below).
         #        They include the Example in the above doc-string.
         # ---------------------------------------------------------------------
+        self.start = self.starting
+        self.end = self.ending
 
 
 ###############################################################################
