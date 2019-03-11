@@ -1,10 +1,9 @@
 """
 A   CapitalT   class and functions that use/test it.
-
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Harrison Finch.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -20,10 +19,10 @@ def main():
     print('Un-comment the calls in MAIN one by one')
     print(' to run the testing code as you complete the TODOs.')
 
-    # run_test_simple_t()
-    # run_test_set_colors()
-    # run_test_move_by()
-    # run_test_clone()
+    run_test_simple_t()
+    run_test_set_colors()
+    run_test_move_by()
+    run_test_clone()
 
 
 def run_test_simple_t():
@@ -117,7 +116,6 @@ class CapitalT(object):
     def __init__(self, intersection_center, width, height, letter_thickness):
         """
         *** See   dimensions.pdf   to understand the following! ***
-
         What comes in:
            -- self
            -- an rg.Point for the intersection center of the CapitalT
@@ -135,26 +133,20 @@ class CapitalT(object):
                       that is, the top bar)
           -- v_rect  (to represent the vertical rectangle in the T,
                       that is, the | part of the T)
-
            *** See   dimensions.pdf   to understand the above! ***
-
         Each rectangle is an rg.Rectangle.
-
         IMPORTANT RESTRICTION:  Unlike prior modules you are NOT allowed
             to make any other instance variables than h_rect and v_rect.
             You must figure out how to do the problem with ONLY
             those two instance variables.
-
         Example:
             t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
                 -- t1.h_rect would have an upper left corner of (250, 40)
                 -- t1.h_rect would have an lower right corner of (350, 60)
                 -- t1.v_rect would have an upper left corner of (290, 40)
                 -- t1.v_rect would have an lower right corner of (310, 240)
-
             *** Make sure that you understand this example before     ***
             *** proceeding. See    dimensions.pdf   to understand it! ***
-
         Type hints:
           :type intersection_center: rg.Point
           :type width:               int
@@ -162,7 +154,7 @@ class CapitalT(object):
           :type letter_thickness:    int
         """
         # ---------------------------------------------------------------------
-        # TODO: 3.
+        # DONE: 3.
         #   READ the above specification, including the Example.
         #   Implement this method, using the instance variables
         #      h_rect
@@ -170,6 +162,9 @@ class CapitalT(object):
         #   and *** NO OTHER INSTANCE VARIABLES. ***
         #   Note: Implement   attach_to   before testing this __init__ method.
         # ---------------------------------------------------------------------
+        self.h_rect = rg.Rectangle(rg.Point(intersection_center.x - width / 2, intersection_center.y - letter_thickness / 2), rg.Point(intersection_center.x + width / 2, intersection_center.y + letter_thickness / 2))
+
+        self.v_rect = rg.Rectangle(rg.Point(intersection_center.x - letter_thickness / 2, intersection_center.y - letter_thickness / 2), rg.Point(intersection_center.x + letter_thickness / 2, intersection_center.y - letter_thickness / 2 + height))
 
     def attach_to(self, window):
         """
@@ -180,17 +175,15 @@ class CapitalT(object):
         Side effects:
           -- Attaches both instance-variable rectangles to the given window.
           -- Hint: Attach  h_rect  second to make it draw in front of  v_rect.
-
         Example:
             window = rg.RoseWindow()
             t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
             t1.attach_to(window)
-
         Type hints:
           :type window: rg.RoseWindow
         """
         # ---------------------------------------------------------------------
-        # TODO: 4.
+        # DONE: 4.
         #   READ the above specification, including the Example.
         #   Implement this method, then TEST it by:
         #     a. Un-comment the call to its test function, in main.  Run.
@@ -198,6 +191,8 @@ class CapitalT(object):
         #     c. Compare the graphics window to the   simple_t.pdf   pictures.
         #        They should look exactly the same as each other.
         # ---------------------------------------------------------------------
+        self.v_rect.attach_to(window)
+        self.h_rect.attach_to(window)
 
     def set_colors(self, fill_color, outline_color):
         """
@@ -211,18 +206,16 @@ class CapitalT(object):
                to the given fill color.
           -- Sets the outline_color of both instance-variable rectangles
                to the given outline color.
-
         Example:
             window = rg.RoseWindow()
             t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
             t1.set_color('red', 'blue')
-
         Type hints:
           :type fill_color:    str
           :type outline_color: str
         """
         # ---------------------------------------------------------------------
-        # TODO: 5.
+        # DONE: 5.
         #   READ the above specification, including the Example.
         #   Implement this method, then TEST it by:
         #     a. Un-comment the call to its test function, in main.  Run.
@@ -230,6 +223,11 @@ class CapitalT(object):
         #     c. Compare the graphics window to the  set_colors.pdf   pictures.
         #        They should look exactly the same as each other.
         # ---------------------------------------------------------------------
+        self.h_rect.fill_color = fill_color
+        self.h_rect.outline_color = outline_color
+
+        self.v_rect.fill_color = fill_color
+        self.v_rect.outline_color = outline_color
 
     def move_by(self, dx, dy):
         """
@@ -241,7 +239,6 @@ class CapitalT(object):
         Side effects:
           -- Moves both instance-variable rectangles the specified distances
                in the x and y directions, respectively.
-
         Example:
             window = rg.RoseWindow()
             t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
@@ -249,13 +246,12 @@ class CapitalT(object):
             window.render(0.5)
             t1.move_by(100, 200) # Moves the T 100 pixels right and 200 down.
             window.render()  # necessary to see the change
-
         Type hints:
           :type dx: int
           :type dy: int
         """
         # ---------------------------------------------------------------------
-        # TODO: 6.
+        # DONE: 6.
         #   READ the above specification, including the Example.
         #   Implement this method, then TEST it by:
         #     a. Un-comment the call to its test function, in main.  Run.
@@ -266,7 +262,15 @@ class CapitalT(object):
         #        Note: the pdf shows the different locations that
         #        the T moves through, but there is only one T at any moment.
         # ---------------------------------------------------------------------
+        self.h_rect.corner_1.x = self.h_rect.corner_1.x + dx
+        self.h_rect.corner_1.y = self.h_rect.corner_1.y + dy
+        self.h_rect.corner_2.x = self.h_rect.corner_2.x + dx
+        self.h_rect.corner_2.y = self.h_rect.corner_2.y + dy
 
+        self.v_rect.corner_1.x = self.v_rect.corner_1.x + dx
+        self.v_rect.corner_1.y = self.v_rect.corner_1.y + dy
+        self.v_rect.corner_2.x = self.v_rect.corner_2.x + dx
+        self.v_rect.corner_2.y = self.v_rect.corner_2.y + dy
     def clone(self):
         """
         What comes in:
@@ -277,18 +281,16 @@ class CapitalT(object):
                instance-variable rectangles.
         Side effects:
           -- None
-
         Example:
             window = rg.RoseWindow()
             t1 = CapitalT(rg.Point(300, 50), 100, 200, 20)
             t1.set_color('red', 'blue')
             t2 = t1.clone() # t2 is at the same location WITH THE SAME COLORS
-
         Type hints:
           :rtype: CapitalT
         """
         # ---------------------------------------------------------------------
-        # TODO: 7.
+        # done: 7.
         #   READ the above specification, including the Example.
         #   Implement this method, then TEST it by:
         #     a. Un-comment the call to its test function, in main.  Run.
@@ -300,7 +302,13 @@ class CapitalT(object):
         # IMPORTANT RESTRICTION: You are NOT permitted to add any instance
         # variables beyond  h_rect  and  v_rect, at any point of this exercise.
         #######################################################################
-
+        width = self.h_rect.corner_2.x - self.h_rect.corner_1.x
+        length = self.v_rect.corner_2.y - self.h_rect.corner_1.y
+        letter_thickness = self.h_rect.corner_2.y - self.h_rect.corner_1.y
+        intersection_center = rg.Point(self.h_rect.corner_1.x / 2 + self.h_rect.corner_2.x / 2, self.v_rect.corner_1.y + letter_thickness / 2)
+        copy = CapitalT(intersection_center, width, length, letter_thickness)
+        copy.set_colors(self.h_rect.fill_color, self.h_rect.outline_color)
+        return copy
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
